@@ -50,17 +50,30 @@ export default function Students({ open, defaultValues,handleClose }: Props) {
             aria-describedby="simple-modal-description"
         >
             <div style={modalStyle} className={classes.paper}>
-                <div style={{ display: 'flex', flexFlow: 'column' }}>
-                    <p>First Name: </p>
-                    <p>{(defaultValues)?defaultValues.firstName:''}</p>
-                    <p>Last Name: </p>
-                    <p>{(defaultValues)?defaultValues.lastName:''}</p>
-                    <p>Birth Date: </p>
-                    <p>{(defaultValues)?defaultValues.birthDate:''}</p>
-                    <p>Email: </p>
-                    <p>{(defaultValues)?defaultValues.email:''}</p>
-                    <p>Gender: </p>
-                    <p>{(defaultValues)?defaultValues.gender:''}</p>
+                <div>
+                    <h1>Student's Details</h1>
+                </div>
+                <div style={{ display: 'flex', flexFlow: 'column', paddingTop:'20px' }}>
+                    <div style={{display:"flex", flexFlow:'row', justifyContent:'space-between'}}>
+                        <p><span style={{fontWeight:'bold'}}>First Name:</span></p>
+                        <p>{(defaultValues)?defaultValues.firstName:''}</p>
+                    </div>
+                    <div style={{display:"flex", flexFlow:'row', justifyContent:'space-between'}}>
+                        <p><span style={{fontWeight:'bold'}}>Last Name: </span></p>
+                        <p>{(defaultValues)?defaultValues.lastName:''}</p>
+                    </div>
+                    <div style={{display:"flex", flexFlow:'row', justifyContent:'space-between'}}>
+                        <p><span style={{fontWeight:'bold'}}>Birth Date: </span></p>
+                        <p>{(defaultValues)?defaultValues.birthDate:''}</p>
+                    </div>
+                    <div style={{display:"flex", flexFlow:'row', justifyContent:'space-between'}}>
+                        <p><span style={{fontWeight:'bold'}}>Email: </span></p>
+                        <p>{(defaultValues)?defaultValues.email:''}</p>
+                    </div>
+                    <div style={{display:"flex", flexFlow:'row', justifyContent:'space-between'}}>
+                        <p><span style={{fontWeight:'bold'}}>Gender: </span></p>
+                        <p>{(defaultValues)?defaultValues.gender:''}</p>
+                    </div>
                 </div>
             </div>
         </Modal>

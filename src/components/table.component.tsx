@@ -19,15 +19,15 @@ interface Column {
     id: any;
     label: string;
     minWidth?: number;
-    align?: 'right' | 'left';
+    align?: 'right' | 'left' | 'center';
     format?: (value: number) => string;
 }
 
 const columns: Column[] = [
-    { id: 'name', align: 'right', label: 'Student Name', minWidth: 100 },
-    { id: 'edit', align: 'right', label: 'Edit', minWidth: 100 },
-    { id: 'delete', align: 'right', label: 'Delete', minWidth: 100 },
-    { id: 'details', align: 'right', label: 'View Details', minWidth: 100 },
+    { id: 'name', align: 'left', label: 'Student Name', minWidth: 100 },
+    { id: 'edit', align: 'center', label: 'Edit', minWidth: 50 },
+    { id: 'delete', align: 'center', label: 'Delete', minWidth: 50 },
+    { id: 'details', align: 'center', label: 'View Details', minWidth: 50 },
 ]
 
 const useStyles = makeStyles({
@@ -115,59 +115,62 @@ export default function StudentTable() {
     }, []);
 
     return (
-        <div>
-            <Students open={show} defaultValues={student} handleClose={() => { setShow(!show) }} />
-            <TableContainer className={classes.container}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell
-                                align="right"
-                                style={{ minWidth: 100 }}>
-                                #
-                            </TableCell>
-                            {columns.map((column, index) => (
+        <div style={{display: "flex",flexDirection:"column",justifyContent:"center", alignItems:"center"}}>
+            <h1>Student's Table</h1>
+            <div className="mt-4 col-md-10">
+                <Students open={show} defaultValues={student} handleClose={() => { setShow(!show) }} />
+                <TableContainer className={classes.container}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
                                 <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}>
-                                    {column.label}
+                                    align="left"
+                                    style={{ minWidth: 10 }}>
+                                    #
                                 </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-
-                    <TableBody>
-                        {students.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((student, index) => {
-                            return (
-                                <TableRow key={student._id} hover role="checkbox" tabIndex={-1}>
-                                    <TableCell align="right">
-                                        {page * rowsPerPage + (index + 1)}
+                                {columns.map((column, index) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}>
+                                        {column.label}
                                     </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
 
-                                    {columns.map((column) => {
-                                        return (
-                                            <TableCell key={`${student._id}-${column.id}`} align={column.align}>
-                                                {renderRow(column, student)}
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
+                        <TableBody>
+                            {students.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((student, index) => {
+                                return (
+                                    <TableRow key={student._id} hover role="checkbox" tabIndex={-1}>
+                                        <TableCell align="left">
+                                            {page * rowsPerPage + (index + 1)}
+                                        </TableCell>
 
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[1, 10, 25, 100]}
-                component="div"
-                count={students.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+                                        {columns.map((column) => {
+                                            return (
+                                                <TableCell key={`${student._id}-${column.id}`} align={column.align}>
+                                                    {renderRow(column, student)}
+                                                </TableCell>
+                                            );
+                                        })}
+                                    </TableRow>
+
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[1, 10, 25, 100]}
+                    component="div"
+                    count={students.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            </div>
         </div>
     );
 }
